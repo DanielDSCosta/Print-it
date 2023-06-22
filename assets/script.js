@@ -1,52 +1,59 @@
-let left = document.getElementsByClassName("arrow_left");
-let right = document.getElementsByClassName("arrow_right");
-let ban = document.querySelector(".banner_img");
-let tagLine = document.querySelector(".tagLine");
-let dots = document.querySelectorAll(".dot");
-let liste = 0;
+let leftButtonElement = document.querySelector(".arrow_left");
+let rightButtonElement = document.querySelector(".arrow_right");
 
-right[0].addEventListener("click", function () {
-  liste++;
-  if (liste === slides.length) {
-    liste = 0;
-  }
-  ban.src = `./assets/images/slideshow/${slides[liste].image}`;
-  tagLine.innerHTML = slides[liste].tagLine;
-  dots.forEach(function (dot) {
-    dot.classList.remove("dot_selected");
-  });
-  dots[liste].classList.add("dot_selected");
-});
-
-left[0].addEventListener("click", function () {
-  liste--;
-  if (liste < 0) {
-    liste = slides.length - 1;
-  }
-  ban.src = `./assets/images/slideshow/${slides[liste].image}`;
-  tagLine.innerHTML = slides[liste].tagLine;
-  dots.forEach(function (dot) {
-    dot.classList.remove("dot_selected");
-  });
-  dots[liste].classList.add("dot_selected");
-});
+let bannerElement = document.querySelector(".banner-img");
+let sliderTagLine = document.querySelector(".tagLine");
+let sliderDotIndicatorElements = document.querySelectorAll(".dot");
 
 const slides = [
   {
-    image: "slide1.jpg",
-    tagLine: "Impressions tous formats <span>en boutique et en ligne</span>",
+    src: "slide1.jpg",
+    innerHTML: "Impressions tous formats <span>en boutique et en ligne</span>",
   },
   {
-    image: "slide2.jpg",
-    tagLine:
+    src: "slide2.jpg",
+    innerHTML:
       "Tirages haute définition grand format <span>pour vos bureaux et events</span>",
   },
   {
-    image: "slide3.jpg",
-    tagLine: "Grand choix de couleurs <span>de CMJN aux pantones</span>",
+    src: "slide3.jpg",
+    innerHTML: "Grand choix de couleurs <span>de CMJN aux pantones</span>",
   },
   {
-    image: "slide4.png",
-    tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
+    src: "slide4.png",
+    innerHTML: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
 ];
+
+let currentSlideIndex = 0;
+
+rightButtonElement.addEventListener("click", function () {
+  currentSlideIndex++;
+
+  if (currentSlideIndex === slides.length) {
+    currentSlideIndex = 0;
+  }
+
+  bannerElement.src = `./assets/images/slideshow/${slides[currentSlideIndex].image}`;
+
+  sliderTagLine.innerHTML = slides[currentSlideIndex].sliderTagLine;
+
+  sliderDotIndicatorElements.forEach(function (sliderDotIndicatorElements) {
+    sliderDotIndicatorElements.classList.remove("dot_selected");
+  });
+
+  sliderDotIndicatorElements[currentSlideIndex].classList.add("dot_selected");
+});
+
+leftButtonElement.addEventListener("click", function () {
+  currentSlideIndex--;
+  if (currentSlideIndex < 0) {
+    currentSlideIndex = slides.length - 1;
+  }
+  bannerElement.src = `./assets/images/slideshow/${slides[currentSlideIndex].image}`;
+  sliderTagLine.innerHTML = slides[currentSlideIndex].sliderTagLine;
+  sliderDotIndicatorElements.forEach(function (sliderDotIndicatorElements) {
+    sliderDotIndicatorElements.classList.remove("dot_selected");
+  });
+  sliderDotIndicatorElements[currentSlideIndex].classList.add("dot_selected");
+});
